@@ -10,6 +10,10 @@ public class DinnerConstructor {
         dishTypeToMenu = new HashMap<>();
     }
 
+    boolean checkType(String type) {
+        return dishTypeToMenu.containsKey(type);
+    }
+
    /* public void addDinnerMenu(String dishType, String dishName) {
         if (!dishTypeToMenu.containsKey(dishType)) {
             dishTypeToMenu.put(dishType, new ArrayList<>());
@@ -30,5 +34,16 @@ public class DinnerConstructor {
         }
     }
 
+    public ArrayList<ArrayList<String>> createRandomCombo(int numberOfCombos, ArrayList<String> dishTypeSets) {
+        ArrayList<String> dishCombos = new ArrayList<>();
+        for (int i = 1; i == numberOfCombos; i++) {
+            for (String dishType : dishTypeSets) {
+                for (String dishNames :dishTypeToMenu.get(dishType)) {
 
-}
+
+                }
+                dishCombos.add();
+            }
+        }
+
+    }
