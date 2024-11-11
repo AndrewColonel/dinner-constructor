@@ -1,6 +1,7 @@
 package ru.practicum.dinner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -42,7 +43,7 @@ public class Main {
         System.out.println("Введите название блюда:");
         String dishName = scanner.nextLine();
 
-        dc.addDinnerMenu(dishType,dishName);// добавьте новое блюдо
+        dc.addDinnerMenu(dishType, dishName);// добавьте новое блюдо
     }
 
     private static void generateDishCombo() {
@@ -56,19 +57,27 @@ public class Main {
                 + "Для завершения ввода введите пустую строку");
         String nextItem = scanner.nextLine();
 
-        ArrayList<String> dishTypeSets = new ArrayList<>();
-
-        //реализуйте ввод типов блюд
-        while (!nextItem.isEmpty()) {
-            if (dc.checkType(nextItem)) {
-                dishTypeSets.add(nextItem);
+        HashMap<String, ArrayList<String>> dishComboSets = new HashMap<>();
+        ArrayList<String> dishComboSet = new ArrayList<>();
+        /* Хэш таблица для предвармительного сбора списка по типам блюд. Ключами будут номерные названия заданного
+        кол-ва комбинаций, полями - заготовка списков, содержащих пока список выбранных пользователем
+        типов комбинаций. */
+        while (!nextItem.isEmpty()) { // Цикл ввода типов блюд, выход - двойное нажатие Enter
+            if (dc.checkType(nextItem)) { // проверяем наличие типа блюда в ранее созданном меню
+                dishComboSet.add(nextItem); // составляем комбинацию типов блюд
             } else {
-                System.out.println("Такого типа блюда не существует, введите другой тип" );
+                System.out.println("Такого типа блюда не существует, введите другой тип");
             }
             nextItem = scanner.nextLine();
         }
 
-        // сгенерируйте комбинации блюд и выведите на экран
+        for (int i = 1; i <= numberOfCombos;  i++) {
+            // Заполняем Хэш таблицу заготовками комбинаций и номерными названиями ключей
+            dishComboSets.put("Комбо "+ i, dishComboSet);
+        }
 
+        dc.createRandomCombo(dishComboSets); // генерируем комбинацию блюд
+
+        System.out.println(dishComboSets); // вывод комбинаций на экран
     }
 }
