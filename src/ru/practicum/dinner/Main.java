@@ -1,7 +1,6 @@
 package ru.practicum.dinner;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -53,31 +52,35 @@ public class Main {
         int numberOfCombos = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println("Вводите типы блюда, разделяя символом переноса строки (enter). "
-                + "Для завершения ввода введите пустую строку");
-        String nextItem = scanner.nextLine();
+        if (numberOfCombos > 0) {
+            ArrayList<String> dishTypeComboSet = new ArrayList<>();
+//            ArrayList <ArrayList<String>> dishComboSet = new ArrayList<>();
+            // основной структурой для хранения комбинаций будет список
+            System.out.println("Вводите типы блюда, разделяя символом переноса строки (enter). "
+                    + "Для завершения ввода введите пустую строку");
+            String nextItem = scanner.nextLine();
 
-        HashMap<String, ArrayList<String>> dishComboSets = new HashMap<>();
-        ArrayList<String> dishComboSet = new ArrayList<>();
-        /* Хэш таблица для предвармительного сбора списка по типам блюд. Ключами будут номерные названия заданного
-        кол-ва комбинаций, полями - заготовка списков, содержащих пока список выбранных пользователем
-        типов комбинаций. */
-        while (!nextItem.isEmpty()) { // Цикл ввода типов блюд, выход - двойное нажатие Enter
-            if (dc.checkType(nextItem)) { // проверяем наличие типа блюда в ранее созданном меню
-                dishComboSet.add(nextItem); // составляем комбинацию типов блюд
-            } else {
-                System.out.println("Такого типа блюда не существует, введите другой тип");
+            while (!nextItem.isEmpty()) { // Цикл ввода типов блюд, выход - двойное нажатие Enter
+                if (dc.checkType(nextItem)) { // проверяем наличие типа блюда в ранее созданном меню
+                    dishTypeComboSet.add(nextItem); // составляем список комбинаций типов блюд
+                } else {
+                    System.out.println("Такого типа блюда не существует, введите другой тип");
+                }
+                nextItem = scanner.nextLine();
             }
-            nextItem = scanner.nextLine();
+
+            for (int i = 1; i <= numberOfCombos; i++) {
+                // генерируем комбинацию блюд
+//                dishComboSet.add(dc.genRandomCombo(dishTypeComboSet));
+                System.out.println(dc.genRandomCombo(dishTypeComboSet));
+            }
+//            System.out.println(dishComboSet);
+
+
+            // вывод комбинаций на экран
+
+        } else {
+            System.out.println("Количество наборов должно быть положительным числом, отличным от 0!");
         }
-
-        for (int i = 1; i <= numberOfCombos;  i++) {
-            // Заполняем Хэш таблицу заготовками комбинаций и номерными названиями ключей
-            dishComboSets.put("Комбо "+ i, dishComboSet);
-        }
-
-        dc.createRandomCombo(dishComboSets); // генерируем комбинацию блюд
-
-        System.out.println(dishComboSets); // вывод комбинаций на экран
     }
 }

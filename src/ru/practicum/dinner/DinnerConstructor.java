@@ -36,29 +36,25 @@ public class DinnerConstructor {
         }
     }
 
-    public void createRandomCombo(HashMap<String, ArrayList<String>> dishComboSets) {
-        for (String comboNumber : dishComboSets.keySet()) { // перебираем все ключи Хэш таблицы с комбинациями
-            // Хэш таблица точно содержит непустые ключи - КомбоХ
-            ArrayList<String> dishComboSet = dishComboSets.get(comboNumber);
-            if (!dishComboSet.isEmpty()) {
-                // проверка заполнения списка комбинации, пока содержащих типы - могут быть пустыми
-                for (int i = 0; i < dishComboSet.size(); i++) {
-                    // for (String dishType : dishTypeSet) {
-                    String dishType = dishComboSet.get(i);
-                    // для каждого пользовательского набора типов формирую случайную выборку соответсвующих блюд
-                    if (dishTypeToMenu.containsKey(dishType)) {
-                        // дополнительно проверил наличи такого ключа, но он точно долджен быть там)
-                        ArrayList<String> dishNames = dishTypeToMenu.get(dishType);
-                        String randomDishName = dishNames.get(random.nextInt(dishNames.size()));
-                        // делаем случайную выборку Названий блюд соответсвующего типа
-                        dishComboSet.remove(i); // удаляю элемент списка с типов блюда
-                        // и на это же место вношу элемент со "случайным" названием блюда
-                        dishComboSet.add(i, randomDishName);
-                        // получаем списко комбинаций уже со случайными названиями блюд в соответсвии с заданными типами
-                    }
+    public ArrayList<String> genRandomCombo(ArrayList<String> dishTypeComboSet) {
+        ArrayList<String> dishNameComboSet = new ArrayList<>();
+        if (!dishTypeComboSet.isEmpty()) {
+
+            for (String dishType : dishTypeComboSet) {
+                if (dishTypeToMenu.containsKey(dishType)) {
+                    ArrayList<String> dishNames = dishTypeToMenu.get(dishType);
+//                    int randomNumber = random.nextInt(dishNames.size());
+//                    System.out.println(randomNumber);
+                    String dishName = dishNames.get(random.nextInt(dishNames.size()));
+                    dishNameComboSet.add(dishName);
                 }
             }
+
         }
+        return dishNameComboSet;
+
     }
 }
+
+
 
