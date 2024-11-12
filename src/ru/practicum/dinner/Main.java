@@ -15,6 +15,11 @@ public class Main {
         while (true) {
             printMenu();
             String command = scanner.nextLine();
+            /* Комментарий Код Ревьюера - Ирек Валиев:
+            после считывания информации через scanner.nextLine() лучше удалить из полученной строки пробельные
+            символы при помощи метода trim(). Обычно человек не видит разницы между строкой "2" и  "2 " .
+             Попробуй сам до изменения ввести второй вариант))*/
+            command = command.trim();
 
             switch (command) {
                 case "1":
@@ -24,7 +29,13 @@ public class Main {
                     generateDishCombo();
                     break;
                 case "3":
+                //  Ирек Валиев - можно добавить прощальное сообщение для пользователя
+                    System.out.println("Всего Хорошего!");
                     return;
+                default:
+                    /* Ирек Валиев - можно добавить default блок, в котором будет выводиться пользователю сообщение,
+                        если он ввел неверную команду*/
+                    System.out.println("Неверная команда, попробуйте еще!");
             }
         }
     }
@@ -59,6 +70,7 @@ public class Main {
             System.out.println("Вводите типы блюда, разделяя символом переноса строки (enter). "
                     + "Для завершения ввода введите пустую строку");
             String nextItem = scanner.nextLine();
+            nextItem = nextItem.trim();
 
             while (!nextItem.isEmpty()) { // Цикл ввода типов блюд, выход - двойное нажатие Enter
                 if (dc.checkType(nextItem)) { // проверяем наличие типа блюда в ранее созданном меню
