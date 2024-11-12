@@ -53,9 +53,9 @@ public class Main {
         scanner.nextLine();
 
         if (numberOfCombos > 0) {
-            ArrayList<String> dishTypeComboSet = new ArrayList<>();
-//            ArrayList <ArrayList<String>> dishComboSet = new ArrayList<>();
             // основной структурой для хранения комбинаций будет список
+            ArrayList<String> dishTypeComboSet = new ArrayList<>(); // Список для сбора заданных типов блюд
+
             System.out.println("Вводите типы блюда, разделяя символом переноса строки (enter). "
                     + "Для завершения ввода введите пустую строку");
             String nextItem = scanner.nextLine();
@@ -69,15 +69,15 @@ public class Main {
                 nextItem = scanner.nextLine();
             }
 
+            System.out.println("-".repeat(20)); // для более удобного визуального представления информации
+
             for (int i = 1; i <= numberOfCombos; i++) {
-                // генерируем комбинацию блюд
-//                dishComboSet.add(dc.genRandomCombo(dishTypeComboSet));
+                System.out.println("Комбо " + i);
+                // генерируем комбинацию блюд в соответсвии с комбинацией типов и вывод на печать
                 System.out.println(dc.genRandomCombo(dishTypeComboSet));
             }
-//            System.out.println(dishComboSet);
 
-
-            // вывод комбинаций на экран
+            System.out.println("-".repeat(20)); // для более удобного визуального представления информации
 
         } else {
             System.out.println("Количество наборов должно быть положительным числом, отличным от 0!");
